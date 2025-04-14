@@ -37,8 +37,8 @@ const ScrollSection = () => {
   return (
     <div className="bg-black min-h-[300vh]" ref={containerRef}>
       {/* Fixed phone mockup with image transition */}
-      <div className="fixed top-0 right-0 w-1/2 h-screen flex items-center justify-center">
-        <div className="relative">
+      <div className="fixed top-0 right-0 w-1/2 h-screen flex items-center justify-center pr-16">
+        <div className="relative w-[380px]"> {/* Fixed width to ensure consistent sizing */}
           {mockupImages.map((image, index) => (
             <div
               key={image}
@@ -54,7 +54,7 @@ const ScrollSection = () => {
       </div>
 
       {/* Scrollable text sections with fade transitions */}
-      <div className="w-1/2 relative">
+      <div className="w-1/2 relative pl-24"> {/* Increased left padding */}
         <div className="min-h-screen flex items-center px-16">
           <div className={cn(
             "transition-opacity duration-500",
