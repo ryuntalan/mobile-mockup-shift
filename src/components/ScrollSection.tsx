@@ -5,6 +5,7 @@ import PhoneMockup from './PhoneMockup';
 
 const ScrollSection = () => {
   const [activeSection, setActiveSection] = useState(0);
+  const [lastActiveSection, setLastActiveSection] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -15,12 +16,17 @@ const ScrollSection = () => {
       const sectionHeight = window.innerHeight;
       
       const newActiveSection = Math.floor(scrollPosition / sectionHeight);
-      setActiveSection(Math.min(2, Math.max(0, newActiveSection)));
+      const clampedSection = Math.min(2, Math.max(0, newActiveSection));
+      
+      if (clampedSection !== activeSection) {
+        setLastActiveSection(activeSection);
+        setActiveSection(clampedSection);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [activeSection]);
 
   const mockupImages = [
     "/lovable-uploads/4e82b18d-5c66-4d05-af35-50c22c36b9b0.png",
@@ -30,15 +36,30 @@ const ScrollSection = () => {
 
   return (
     <div className="bg-black min-h-[300vh]" ref={containerRef}>
-      {/* Fixed phone mockup */}
+      {/* Fixed phone mockup with image transition */}
       <div className="fixed top-0 right-0 w-1/2 h-screen flex items-center justify-center">
-        <PhoneMockup currentImage={mockupImages[activeSection]} />
+        <div className="relative">
+          {mockupImages.map((image, index) => (
+            <div
+              key={image}
+              className={cn(
+                "absolute inset-0 transition-opacity duration-700",
+                activeSection === index ? "opacity-100" : "opacity-0"
+              )}
+            >
+              <PhoneMockup currentImage={image} />
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Scrollable text sections */}
+      {/* Scrollable text sections with fade transitions */}
       <div className="w-1/2 relative">
         <div className="min-h-screen flex items-center px-16">
-          <div>
+          <div className={cn(
+            "transition-opacity duration-500",
+            activeSection === 0 ? "opacity-100" : "opacity-0"
+          )}>
             <h2 className="text-white text-6xl font-bold mb-6">
               Align with your aesthetic.
             </h2>
@@ -50,7 +71,10 @@ const ScrollSection = () => {
         </div>
 
         <div className="min-h-screen flex items-center px-16">
-          <div>
+          <div className={cn(
+            "transition-opacity duration-500",
+            activeSection === 1 ? "opacity-100" : "opacity-0"
+          )}>
             <h2 className="text-white text-6xl font-bold mb-6">
               Professional grade editing.
             </h2>
@@ -62,7 +86,10 @@ const ScrollSection = () => {
         </div>
 
         <div className="min-h-screen flex items-center px-16">
-          <div>
+          <div className={cn(
+            "transition-opacity duration-500",
+            activeSection === 2 ? "opacity-100" : "opacity-0"
+          )}>
             <h2 className="text-white text-6xl font-bold mb-6">
               Endless possibilities.
             </h2>
