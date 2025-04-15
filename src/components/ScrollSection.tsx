@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import PhoneMockup from './PhoneMockup';
@@ -65,8 +66,8 @@ const ScrollSection = () => {
 
   return (
     <div className="bg-black min-h-[300vh]" ref={containerRef}>
-      {/* Fixed phone mockup with image transition - centered vertically */}
-      <div className="fixed top-1/2 right-0 w-1/2 -translate-y-1/2 flex items-center justify-center pr-16">
+      {/* Fixed phone mockup with image transition - strictly centered vertically in the viewport */}
+      <div className="fixed top-0 right-0 w-1/2 h-screen flex items-center justify-center pr-16">
         <div className="relative w-[380px]"> {/* Fixed width to ensure consistent sizing */}
           {mockupImages.map((image, index) => (
             <div
@@ -91,7 +92,8 @@ const ScrollSection = () => {
 
       {/* Scrollable text sections with improved fade transitions */}
       <div className="w-1/2 relative pl-24"> {/* Left padding for text */}
-        <div className="min-h-screen flex items-center px-16">
+        {/* Reduced min-height to show more clearly that there's more content */}
+        <div className="min-h-[90vh] flex items-center px-16">
           <div 
             className="transition-opacity duration-300"
             style={{ opacity: sectionVisibility[0]?.opacity }}
@@ -106,7 +108,7 @@ const ScrollSection = () => {
           </div>
         </div>
 
-        <div className="min-h-screen flex items-center px-16">
+        <div className="min-h-[90vh] flex items-center px-16">
           <div 
             className="transition-opacity duration-300"
             style={{ opacity: sectionVisibility[1]?.opacity }}
@@ -121,7 +123,7 @@ const ScrollSection = () => {
           </div>
         </div>
 
-        <div className="min-h-screen flex items-center px-16">
+        <div className="min-h-[90vh] flex items-center px-16">
           <div 
             className="transition-opacity duration-300"
             style={{ opacity: sectionVisibility[2]?.opacity }}
