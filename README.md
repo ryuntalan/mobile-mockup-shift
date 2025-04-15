@@ -1,8 +1,5 @@
 # Lovable + Cursor Interaction Design
 
-## Project info
-
-**URL**: https://lovable.dev/projects/fa2be9fa-deed-4695-82e2-7318c1464225
 
 ## Demo
 https://vimeo.com/1075818754/029b4f9d76?share=copy
